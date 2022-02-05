@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %} <!-- 라이브러리를 통해 폼 꾸미기 -->
 
 {% block content %}
-    <div style="text-align: center;">
+    <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
         <div>
             <h4>Login</h4>
         </div>
         <div>
             <form action="" method="post">
                 {% csrf_token %}
-                {{ form }} <!-- 클래스 뷰에서 지정한 폼클래스 -->
-                <input type="submit" class="btn btn-primary">
+                <!-- {{ form }} --> <!-- 클래스 뷰에서 지정한 폼클래스 -->
+                {% bootstrap_form form %}
+                <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3"> <!-- rounded-pill - 둥글게 / col-6 - 너비(12면 100퍼센트) / mt-3 - margintop이 3배 -->
             </form>
         </div>
     </div>
