@@ -9,6 +9,11 @@
             <h2 style="font-family: 'NanumSquareB'">
                 {{ target_user.username }}
             </h2>
+            {% if target_user == user %} <!-- 지금 접속한 유저와 타겟 유저가 같은 경우 정보 수정 버튼이 보임 -->
+            <a href="{% url 'accountapp:update' pk=user.pk %}">
+                <p>Change Info</p>
+            </a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
