@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, UpdateView, DetailView
+from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
 
 from accountapp.forms import AccountUpdateForm
 from accountapp.models import HelloWorld
@@ -35,7 +35,12 @@ class AccountDetailView(DetailView): # Read - Detail
     template_name = 'accountapp/detail.html'
 
 class AccountUpdateView(UpdateView): # Update - Create와 똑같다.
-    model = User # 장고에서 제공하는 User 객체
+    model = User
     form_class = AccountUpdateForm # Update 전용 폼으로 사용
-    success_url = reverse_lazy('accountapp:hello_world') # 이 계정을 만드는데 성공했을 경우 돌아갈 url
+    success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/update.html'
+
+class AccountDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('accountapp:login')
+    template_name = 'accountapp/delete.html'
