@@ -6,8 +6,12 @@
 <body>
     {% include 'header.html' %}
 
+    <hr>
+
     {% block content %} <!-- 블록으로 지정 - 앱마다 수정해서 사용 가능함 -->
     {% endblock %}
+
+    <hr>
 
     {% include 'footer.html' %}
 </body>
