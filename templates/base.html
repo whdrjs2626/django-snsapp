@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
 
-</head>
+{% include 'head.html' %}
+
 <body>
-    <h1>asdasd</h1>
+    {% include 'header.html' %}
+
+    {% block content %} <!-- 블록으로 지정 - 앱마다 수정해서 사용 가능함 -->
+    {% endblock %}
+
+    {% include 'footer.html' %}
 </body>
 </html>
