@@ -12,6 +12,9 @@
             <span>login</span>
         </a>
         {% else %}
+        <a href="{% url 'accountapp:detail' pk=user.pk %}"> <!-- 지금 접속한 유저의 pk값을 넣어준다. -->
+            <span>MyPage</span>
+        </a>
         <a href="{% url 'accountapp:logout' %}?next={{ request.path }}">
             <span>logout</span>
         </a>
