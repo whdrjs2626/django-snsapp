@@ -6,6 +6,15 @@
         <span>nav1</span>
         <span>nav2</span>
         <span>nav3</span>
-        <span>nav4</span>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'accountapp:login' %}?next={{ request.path }}">
+            <!-- 유저가 로그인되어 있지 않으면 login버튼을 띄움, 버튼 클릭 시 login 페이지로 이동된다. get 요청으로 next를 지정하여 리다이렉트 시 원래 있었던 페이지로 돌아옴 -->
+            <span>login</span>
+        </a>
+        {% else %}
+        <a href="{% url 'accountapp:logout' %}?next={{ request.path }}">
+            <span>logout</span>
+        </a>
+        {% endif %}
     </div>
 </div>
