@@ -6,9 +6,19 @@
             <p>
                 {{ target_user.date_joined }}
             </p>
+
+            {% if target_user.profile %} <!-- 타겟 유저가 Profile을 가지고 있다면 username을 출력 -->
             <h2 style="font-family: 'NanumSquareB'">
                 {{ target_user.username }}
             </h2>
+            {% else %} <!-- 없다면 Profile을 만드는 페이지로 이동하는 버튼 출력 -->
+            <a href="{% url 'profileapp:create' %}">
+                <h2 style="font-family: 'NanumSquareB'">
+                    Create Profile
+                </h2>
+            </a>
+            {% endif %}
+
             {% if target_user == user %} <!-- 지금 접속한 유저와 타겟 유저가 같은 경우 정보 수정 버튼이 보임 -->
             <a href="{% url 'accountapp:update' pk=user.pk %}">
                 <p>Change Info</p>
