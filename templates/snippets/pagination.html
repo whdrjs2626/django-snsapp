@@ -1,0 +1,19 @@
+<div style="text-align: center; margin: 1rem 0;">
+
+    {% if page_obj.has_previous %} <!-- 이전 페이지가 있는가? -->
+    <a href="{% url 'articleapp:list' %}?page={{ page_obj.previous_page_number }}" class="btn btn-secondary rounded-pill">
+        {{ page_obj.previous_page_number }} <!-- 있다면 이전 페이지로 가는 링크 출력 -->
+    </a>
+    {% endif %}
+
+    <a href="{% url 'articleapp:list' %}?page={{ page_obj.number }}" class="btn btn-secondary rounded-pill active">
+        {{ page_obj.number }} <!-- 현재 페이지 -->
+    </a>
+
+    {% if page_obj.has_next %} <!-- 다음 페이지가 있는가? -->
+    <a href="{% url 'articleapp:list' %}?page={{ page_obj.next_page_number }}" class="btn btn-secondary rounded-pill">
+        {{ page_obj.next_page_number }}
+    </a>
+    {% endif %}
+
+</div>
