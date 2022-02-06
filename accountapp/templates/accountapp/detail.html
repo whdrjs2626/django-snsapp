@@ -4,24 +4,33 @@
     <div>
         <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
 
+            {% if target_user.profile %} <!-- 타겟 유저가 Profile을 가지고 있다면 username을 출력 -->
+
             <img src="{{ target_user.profile.image.url }}" alt="" style="height: 12rem; width: 12rem; border-radius: 20rem; margin-bottom: 2rem;">
 
-            {% if target_user.profile %} <!-- 타겟 유저가 Profile을 가지고 있다면 username을 출력 -->
             <h2 style="font-family: 'NanumSquareB'">
                 {{ target_user.username }}
-                <a href="{% url 'profileapp:update' pk=target_user.profile.pk %}"> <!-- 프로필 Update 버튼 -->
-                    edit
-                </a>
+                    {% if target_user == user %} <!-- 접속한 user와 타겟 user가 같은 경우에만 edit 버튼 보임 -->
+                    <a href="{% url 'profileapp:update' pk=target_user.profile.pk %}"> <!-- 프로필 Update 버튼 -->
+                        edit
+                    </a>
+                    {% endif %}
             </h2>
-            {% else %} <!-- 없다면 Profile을 만드는 페이지로 이동하는 버튼 출력 -->
-            <a href="{% url 'profileapp:create' %}">
-                <h2 style="font-family: 'NanumSquareB'">
-                    Create Profile
-                </h2>
-            </a>
-            {% endif %}
 
             <h5 style="margin-bottom: 3rem;"> {{ target_user.profile.message }} </h5>
+
+            {% else %} <!-- 없다면 Profile을 만드는 페이지로 이동하는 버튼 출력 -->
+                {% if target_user == user %}
+                <a href="{% url 'profileapp:create' %}">
+                    <h2 style="font-family: 'NanumSquareB'">
+                        Create Profile
+                    </h2>
+                </a>
+                {% else %}
+                <h2>닉네임 미설정</h2>
+                {% endif %}
+            {% endif %}
+
 
             {% if target_user == user %} <!-- 지금 접속한 유저와 타겟 유저가 같은 경우 정보 수정 버튼이 보임 -->
             <a href="{% url 'accountapp:update' pk=user.pk %}">
