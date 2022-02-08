@@ -10,3 +10,9 @@
 .pragmatic_header {
     text-align:center; margin: 2rem 0;
 }
+
+@media screen and (max-width:500px) { /* 스크린 크기가 500px이하로 떨어지면 아래 속성이 적용됨 */
+    html {
+        font-size: 13px;
+    }
+}
