@@ -26,7 +26,11 @@
         {% endif %}
         <hr>
 
-        {% include 'commentapp/create.html' with article=target_article %}
+        {% for comment in target_article.comment.all %} <!-- target_article의 foreignkey로 연결된 comment를 모두 가져옴 -->
+            {% include 'commentapp/detail.html' with comment=comment %}
+        {% endfor %}
+
+        {% include 'commentapp/create.html' with article=target_article %} <!-- 댓글 작성 폼 -->
 
     </div>
 {% endblock %}
