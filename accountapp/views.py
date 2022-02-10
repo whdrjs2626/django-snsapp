@@ -6,10 +6,12 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic.list import MultipleObjectMixin
 
 from accountapp.decorator import account_ownership_required
 from accountapp.forms import AccountUpdateForm
 from accountapp.models import HelloWorld
+from articleapp.models import Article
 
 has_ownership = [account_ownership_required, login_required] # decorater 배열
 
@@ -37,10 +39,15 @@ class AccountCreateView(CreateView): # Create
     success_url = reverse_lazy('accountapp:hello_world') # 이 계정을 만드는데 성공했을 경우 돌아갈 url
     template_name = 'accountapp/create.html' # 회원가입 프론트
 
-class AccountDetailView(DetailView): # Read - Detail
+class AccountDetailView(DetailView, MultipleObjectMixin): # Read - Detail, Multiple - 프로필 아래 자신이 작성한 article을 보여주기 위해 다른 오브젝트를 출력하기 위함
     model = User
     context_object_name = 'target_user' # detail 페이지에서 user의 정보를 출력하면 무조건 나의 정보만 띄운다. 즉 다른 사람의 페이지로 들어가도 내정보가 나옴 / 따라서 이렇게 target_user를 설정
     template_name = 'accountapp/detail.html'
+    paginate_by = 25
+
+    def get_context_data(self, **kwargs):
+        object_list = Article.objects.filter(writer=self.get_object())
+        return super(AccountDetailView, self).get_context_data(object_list=object_list, **kwargs)
 
 @method_decorator(has_ownership, 'get') # 클래스형 뷰에 인증 decorator을 사용하기 위해서 method_decorator를 사용해야 함
 @method_decorator(has_ownership, 'post')
