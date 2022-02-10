@@ -2,25 +2,26 @@
     <div>
         <h1 class="pragmatic_logo">Pragmatic</h1>
     </div>
-    <div>
-        <a href="{% url 'articleapp:list' %}">
+    <div class="pragmatic_header_navbar">
+        <a href="{% url 'articleapp:list' %}" class="pragmatic_header_nav">
             <span>Articles</span>
         </a>
-        <span>nav2</span>
-        <span>nav3</span>
+        <a href="{% url 'projectapp:list' %}" class="pragmatic_header_nav">
+            <span>Projects</span>
+        </a>
         {% if not user.is_authenticated %}
-        <a href="{% url 'accountapp:login' %}?next={{ request.path }}">
+        <a href="{% url 'accountapp:login' %}?next={{ request.path }}" class="pragmatic_header_nav">
             <!-- 유저가 로그인되어 있지 않으면 login버튼을 띄움, 버튼 클릭 시 login 페이지로 이동된다. get 요청으로 next를 지정하여 리다이렉트 시 원래 있었던 페이지로 돌아옴 -->
             <span>Login</span>
         </a>
-        <a href="{% url 'accountapp:create' %}?next={{ request.path }}">
+        <a href="{% url 'accountapp:create' %}?next={{ request.path }}" class="pragmatic_header_nav">
             <span>SignUp</span>
         </a>
         {% else %}
-        <a href="{% url 'accountapp:detail' pk=user.pk %}"> <!-- 지금 접속한 유저의 pk값을 넣어준다. -->
+        <a href="{% url 'accountapp:detail' pk=user.pk %}" class="pragmatic_header_nav"> <!-- 지금 접속한 유저의 pk값을 넣어준다. -->
             <span>MyPage</span>
         </a>
-        <a href="{% url 'accountapp:logout' %}?next={{ request.path }}">
+        <a href="{% url 'accountapp:logout' %}?next={{ request.path }}" class="pragmatic_header_nav">
             <span>Logout</span>
         </a>
         {% endif %}
